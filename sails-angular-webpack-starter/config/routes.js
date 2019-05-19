@@ -13,32 +13,34 @@ module.exports.routes = {
   //  ╦ ╦╔═╗╔╗ ╔═╗╔═╗╔═╗╔═╗╔═╗
   //  ║║║║╣ ╠╩╗╠═╝╠═╣║ ╦║╣ ╚═╗
   //  ╚╩╝╚═╝╚═╝╩  ╩ ╩╚═╝╚═╝╚═╝
-  'GET /':                   { action: 'view-homepage-or-redirect' },
+  'GET /':                   { action: 'assets/get-static-asset' },
   'GET /welcome/:unused?':   { action: 'dashboard/view-welcome' },
 
-  'GET /faq':                { action:   'view-faq' },
-  'GET /legal/terms':        { action:   'legal/view-terms' },
-  'GET /legal/privacy':      { action:   'legal/view-privacy' },
-  'GET /contact':            { action:   'view-contact' },
+  // 'GET /faq':                { action:   'view-faq' },
+  // 'GET /legal/terms':        { action:   'legal/view-terms' },
+  // 'GET /legal/privacy':      { action:   'legal/view-privacy' },
+  // 'GET /contact':            { action:   'view-contact' },
+  //
+  // 'GET /signup':             { action: 'entrance/view-signup' },
+  // 'GET /email/confirm':      { action: 'entrance/confirm-email' },
+  // 'GET /email/confirmed':    { action: 'entrance/view-confirmed-email' },
+  //
+  // // 'GET /login':              { action: 'entrance/view-login' },
+  // 'GET /password/forgot':    { action: 'entrance/view-forgot-password' },
+  // 'GET /password/new':       { action: 'entrance/view-new-password' },
+  //
+  // 'GET /account':            { action: 'account/view-account-overview' },
+  // 'GET /account/password':   { action: 'account/view-edit-password' },
+  // 'GET /account/profile':    { action: 'account/view-edit-profile' },
 
-  'GET /signup':             { action: 'entrance/view-signup' },
-  'GET /email/confirm':      { action: 'entrance/confirm-email' },
-  'GET /email/confirmed':    { action: 'entrance/view-confirmed-email' },
-
-  'GET /login':              { action: 'entrance/view-login' },
-  'GET /password/forgot':    { action: 'entrance/view-forgot-password' },
-  'GET /password/new':       { action: 'entrance/view-new-password' },
-
-  'GET /account':            { action: 'account/view-account-overview' },
-  'GET /account/password':   { action: 'account/view-edit-password' },
-  'GET /account/profile':    { action: 'account/view-edit-profile' },
-
+  // Static pages are in assets/dist
+  'GET /*':                  { action: 'assets/get-static-asset' },
 
   //  ╔╦╗╦╔═╗╔═╗  ╦═╗╔═╗╔╦╗╦╦═╗╔═╗╔═╗╔╦╗╔═╗   ┬   ╔╦╗╔═╗╦ ╦╔╗╔╦  ╔═╗╔═╗╔╦╗╔═╗
   //  ║║║║╚═╗║    ╠╦╝║╣  ║║║╠╦╝║╣ ║   ║ ╚═╗  ┌┼─   ║║║ ║║║║║║║║  ║ ║╠═╣ ║║╚═╗
   //  ╩ ╩╩╚═╝╚═╝  ╩╚═╚═╝═╩╝╩╩╚═╚═╝╚═╝ ╩ ╚═╝  └┘   ═╩╝╚═╝╚╩╝╝╚╝╩═╝╚═╝╩ ╩═╩╝╚═╝
   '/terms':                   '/legal/terms',
-  '/logout':                  '/api/v1/account/logout',
+  // '/logout':                  '/api/v1/account/logout',
 
 
   //  ╦ ╦╔═╗╔╗ ╦ ╦╔═╗╔═╗╦╔═╔═╗
