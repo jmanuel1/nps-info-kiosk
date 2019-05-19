@@ -118,7 +118,11 @@ module.exports.models = {
   *                                                                          *
   ***************************************************************************/
 
-  cascadeOnDestroy: true
+  cascadeOnDestroy: true,
 
+  /* To mitigate a bug in sails-hook-autoreload:
+  https://github.com/sgress454/sails-hook-autoreload/issues/84#issuecomment-393135923
+  */
+  archiveModelIdentity: false
 
 };
