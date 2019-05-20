@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // TODO: Add autocomplete later
-import {MatFormFieldModule} from '@angular/material';
+import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 
 @NgModule({
@@ -20,6 +20,7 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
+    MatInputModule,
     HttpClientModule
   ],
   providers: [],
