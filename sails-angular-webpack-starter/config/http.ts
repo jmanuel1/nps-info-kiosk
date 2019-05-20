@@ -9,6 +9,8 @@
  * https://sailsjs.com/config/http
  */
 
+declare var sails: any;
+
 module.exports.http = {
 
   /****************************************************************************
@@ -21,6 +23,14 @@ module.exports.http = {
   ****************************************************************************/
 
   middleware: {
+    /* This middleware adds an event handler to every response object to log when the response finishes. */
+    logResponses(req, res, next): void {
+      res.on('finish', () => {
+        sails.log.debug('A request with the following headers has finished:');
+        sails.log.debug(res.getHeaders());
+      });
+      next();
+    },
 
     /***************************************************************************
     *                                                                          *
@@ -29,7 +39,7 @@ module.exports.http = {
     *                                                                          *
     ***************************************************************************/
 
-    // order: [
+    order: [
     //   'cookieParser',
     //   'session',
     //   'bodyParser',
@@ -38,7 +48,9 @@ module.exports.http = {
     //   'router',
     //   'www',
     //   'favicon',
-    // ],
+      'logResponses',
+      'router'
+    ]
 
 
     /***************************************************************************
@@ -54,7 +66,5 @@ module.exports.http = {
     //   var middlewareFn = skipper({ strict: true });
     //   return middlewareFn;
     // })(),
-
-  },
-
+  }
 };
