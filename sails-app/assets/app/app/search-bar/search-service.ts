@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 import { debounceTime,
          distinctUntilChanged,
          map,
-         switchMap } from 'rxjs/operators';
+         switchMap,
+         filter } from 'rxjs/operators';
 
 @Injectable()
 export class SearchService {
@@ -16,6 +17,7 @@ export class SearchService {
   search(terms: Observable<string>) {
     return terms.pipe(debounceTime(400))
       .pipe(distinctUntilChanged())
+      .pipe(filter(term => term.length > 0)) // prevents invalid '?term='
       .pipe(switchMap(term => this.searchEntries(term)));
   }
 
