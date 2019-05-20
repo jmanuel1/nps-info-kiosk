@@ -1,0 +1,5 @@
+<div class='search-bar'>
+  <mat-form-field>
+    <input matInput placeholder="Search parks" (keyup)="searchTerm$.next($event.target.value)">
+  </mat-form-field>
+</div>
