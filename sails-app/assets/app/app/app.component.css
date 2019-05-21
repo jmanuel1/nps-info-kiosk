@@ -1,5 +1,9 @@
-/* h1 {
-  color: #369;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 250%;
-} */
+* {
+  width: 100%;
+}
+
+app-search-bar {
+  width: 75%;
+  margin-left: 12.5%;
+  margin-right: 12.5%;
+}

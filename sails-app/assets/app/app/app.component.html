@@ -1,9 +1,14 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+  rel="stylesheet">
+
+<div style="text-align:center" class="mat-typography">
   <h1>
     Welcome to {{ title }}!
   </h1>
-  <app-search-bar></app-search-bar>
+  <app-search-bar #searchBar></app-search-bar>
+  <app-search-results [results]="searchBar.results"></app-search-results>
 </div>
 
 <router-outlet></router-outlet>

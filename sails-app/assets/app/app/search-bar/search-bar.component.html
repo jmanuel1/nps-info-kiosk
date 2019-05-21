@@ -1,15 +1,20 @@
 <div class='search-bar'>
-  <mat-form-field>
-    <input matInput placeholder="Search parks"
-      (keyup)="searchParameters$.nextSearchTerm($event.target.value)">
-  </mat-form-field>
-  <p>Filters:</p>
-  <mat-form-field>
-    <input matInput placeholder="State"
-      (keyup)="searchParameters$.nextState($event.target.value)">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Designation"
-      (keyup)="searchParameters$.nextDesignation($event.target.value)">
-  </mat-form-field>
+  <div id='main-search'>
+    <mat-form-field>
+      <input matInput placeholder="Search parks"
+        (keyup)="searchParameters$.nextSearchTerm($event.target.value)">
+    </mat-form-field>
+    <mat-icon>search</mat-icon>
+  </div>
+  <div id='filter-fields'>
+    <span>Filters:</span>
+    <mat-form-field>
+      <input matInput placeholder="State"
+        (keyup)="searchParameters$.nextState($event.target.value)">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Designation"
+        (keyup)="searchParameters$.nextDesignation($event.target.value)">
+    </mat-form-field>
+  </div>
 </div>

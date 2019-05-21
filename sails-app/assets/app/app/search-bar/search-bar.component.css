@@ -1,0 +1,33 @@
+#main-search,  mat-input {
+  width: 100%;
+}
+
+#main-search  {
+  display: flex;
+  vertical-align: bottom;
+  align-items: center;
+}
+
+#main-search mat-form-field {
+  flex-grow: 100;
+}
+
+#filter-fields span {
+  flex-grow: 100;
+  text-align: left;
+}
+
+#filter-fields mat-form-field {
+  padding: 10px;
+}
+
+#filter-fields {
+  display: flex;
+  vertical-align: bottom;
+  align-items: center;
+}
+
+:host {
+  display: block;
+  width: 100%;
+}

@@ -5,15 +5,24 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {
+  BrowserAnimationsModule
+} from '@angular/platform-browser/animations';
 // TODO: Add autocomplete later
-import { MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatFormFieldModule,
+         MatInputModule,
+         MatListModule,
+         MatIconModule } from '@angular/material';
 import { SearchBarComponent } from './search-bar/search-bar.component';
+import {
+   SearchResultsComponent
+ } from './search-results/search-results.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    SearchResultsComponent
   ],
   imports: [
     BrowserModule,
@@ -21,6 +30,8 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatListModule,
+    MatIconModule,
     HttpClientModule
   ],
   providers: [],
