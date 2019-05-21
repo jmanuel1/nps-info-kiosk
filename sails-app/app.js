@@ -51,5 +51,18 @@ try {
 }//-•
 
 
+// PRECONDITIONS
+
+// Before lifting, make sure there is an NPS_API_KEY environment variable
+try {
+  if (!process.env.NPS_API_KEY) {
+    throw new Error('No NPS API key');
+  }
+} catch (e) {
+  console.error('No API key for the NPS Data API!');
+  console.error('Make sure to set an environment variable NPS_API_KEY=<your API key>.');
+  return;
+}
+
 // Start server
 sails.lift(rc('sails'));
