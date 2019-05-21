@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { SearchService, SearchResults } from './search-service';
+import { SearchService,
+         SearchResults,
+         SearchParameters } from './search-service';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -10,10 +12,10 @@ import { Subject } from 'rxjs';
 })
 export class SearchBarComponent implements OnInit {
   results: object;
-  searchTerm$ = new Subject<string>();
+  searchParameters$ = new SearchSubject();
 
   constructor(private searchService: SearchService) {
-    this.searchService.search(this.searchTerm$)
+    this.searchService.search(this.searchParameters$)
       .subscribe((results: SearchResults) => {
         this.results = results.results;
       });
@@ -22,4 +24,25 @@ export class SearchBarComponent implements OnInit {
   ngOnInit() {
   }
 
+}
+
+class SearchSubject extends Subject<SearchParameters> {
+  private previous = new SearchParameters();
+
+  nextSearchTerm(term: string) {
+    this.next({...this.previous, term});
+    this.previous = {...this.previous, term};
+  }
+
+  nextState(state: string) {
+    const current = {...this.previous, state};
+    this.next(current);
+    this.previous = current;
+  }
+
+  nextDesignation(designation: string) {
+    const current = {...this.previous, designation};
+    this.next(current);
+    this.previous = current;
+  }
 }

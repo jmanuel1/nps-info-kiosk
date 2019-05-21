@@ -10,23 +10,50 @@ import { debounceTime,
 @Injectable()
 export class SearchService {
   baseUrl = '/api/v1/nps/parks/search/';
-  queryUrl = '?term=';
 
   constructor(private http: HttpClient) { }
 
-  search(terms: Observable<string>) {
-    return terms.pipe(debounceTime(400))
+  search(parameters: Observable<SearchParameters>) {
+    return parameters.pipe(debounceTime(400))
       .pipe(distinctUntilChanged())
-      .pipe(filter(term => term.length > 0)) // prevents invalid '?term='
-      .pipe(switchMap(term => this.searchEntries(term)));
+      .pipe(filter(({ term }) => term.length > 0)) // prevents invalid '?term='
+      .pipe(switchMap(params => this.searchEntries(params)));
   }
 
-  searchEntries(term) {
+  searchEntries(params) {
     return this.http
-        .get<SearchResults>(this.baseUrl + this.queryUrl + term);
+        .get<SearchResults>(this.baseUrl + this.constructQueryURL(params));
+  }
+
+  private constructQueryURL(parameters: SearchParameters) {
+    const { term, state, designation } = parameters;
+    let queryURL = `?term=${term}`;
+
+    if (state.length > 0) {
+      queryURL += `&state=${state}`;
+    }
+    if (designation.length > 0) {
+      queryURL += `&designation=${designation}`;
+    }
+
+    return queryURL;
   }
 }
 
 export interface SearchResults {
   results: object;
+}
+
+export class SearchParameters {
+  term: string;
+  state: string;
+  designation: string;
+
+  constructor(parameters?: object) {
+    const params = {term: '', state: '', designation: '', ...parameters};
+    const { term, state, designation } = params;
+    this.term = term;
+    this.state = state;
+    this.designation = designation;
+  }
 }
