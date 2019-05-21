@@ -12,11 +12,13 @@ class Parameters {
 class NPSParameters {
   parkCode: string;
   stateCode: string;
+  q: string;
 
-  static fromOurParameters(parameters: Parameters) {
+  static fromOurParameters(parameters: Parameters): NPSParameters {
     return {
-      parkCode: parameters.term,
-      stateCode: parameters.state
+      q: parameters.term,
+      stateCode: parameters.state,
+      parkCode: null
     };
   }
 }
@@ -25,17 +27,12 @@ class NPSParameters {
 /* because something else finishes the request early. */
 module.exports = async function search(req, res) {
     let NPS_API_KEY;
-    try {
-      NPS_API_KEY = getNPSAPIKey();
-    } catch (e) {
-      sails.log.error('No API key for the NPS Data API!');
-      sails.log.error('Make sure to set an environment variable NPS_API_KEY=<your API key>.');
-      return res.serverError();
-    }
+    // app.js guarantees that the API key exists
+    NPS_API_KEY = getNPSAPIKey();
     const parameters = getParameters(req);
-    // For now, just make the park codes searchable
+    const npsParameters = NPSParameters.fromOurParameters(parameters);
     const npsResponse =
-      await makeNPSRequest('GET', '/parks', NPSParameters.fromOurParameters(parameters), NPS_API_KEY);
+      await makeNPSRequest('GET', '/parks', npsParameters, NPS_API_KEY);
     const ourResponse = {
       results: filterByDesignation(npsResponse, parameters.designation)
     };
