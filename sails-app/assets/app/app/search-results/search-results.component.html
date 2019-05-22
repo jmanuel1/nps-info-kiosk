@@ -1,7 +1,7 @@
 <div class="search-results">
   <mat-list role="list" *ngIf="results">
     <mat-list-item role="listitem" *ngFor="let result of results.data">
-      {{ result.fullName }}
+      <app-park-result [park]="result"></app-park-result>
     </mat-list-item>
   </mat-list>
 </div>

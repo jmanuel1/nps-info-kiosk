@@ -12,17 +12,25 @@ import {
 import { MatFormFieldModule,
          MatInputModule,
          MatListModule,
-         MatIconModule } from '@angular/material';
+         MatIconModule,
+         MatCardModule,
+         MatExpansionModule } from '@angular/material';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import {
    SearchResultsComponent
  } from './search-results/search-results.component';
+import { ParkResultComponent } from './park-result/park-result.component';
+import {
+  VisitorCenterListComponent
+ } from './visitor-center-list/visitor-center-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchBarComponent,
-    SearchResultsComponent
+    SearchResultsComponent,
+    ParkResultComponent,
+    VisitorCenterListComponent
   ],
   imports: [
     BrowserModule,
@@ -32,6 +40,8 @@ import {
     MatInputModule,
     MatListModule,
     MatIconModule,
+    MatCardModule,
+    MatExpansionModule,
     HttpClientModule
   ],
   providers: [],

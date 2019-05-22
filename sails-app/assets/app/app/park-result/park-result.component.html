@@ -1,0 +1,19 @@
+<div class="park-result">
+  <mat-card>
+    <mat-card-title>{{park.fullName}}</mat-card-title>
+    <mat-card-actions>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Visitor centers
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <app-visitor-center-list [centers]="centersResults.data"  *ngIf="centersResults">
+        </app-visitor-center-list>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+    </mat-card-actions>
+  </mat-card>
+</div>
