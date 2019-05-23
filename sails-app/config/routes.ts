@@ -22,11 +22,15 @@ module.exports.routes = {
   //  ╔═╗╔═╗╦  ╔═╗╔╗╔╔╦╗╔═╗╔═╗╦╔╗╔╔╦╗╔═╗
   //  ╠═╣╠═╝║  ║╣ ║║║ ║║╠═╝║ ║║║║║ ║ ╚═╗
   //  ╩ ╩╩  ╩  ╚═╝╝╚╝═╩╝╩  ╚═╝╩╝╚╝ ╩ ╚═╝
-  // Note that, in this app, these API endpoints may be accessed using the `Cloud.*()` methods
-  // from the Parasails library, or by using those method names as the `action` in <ajax-form>.
+  // Note that, in this app, these API endpoints may be accessed using the
+  // `Cloud.*()` methods from the Parasails library, or by using those method
+  // names as the `action` in <ajax-form>.
   'GET /api/v1/nps/parks/search': { action: 'nps/parks/search' },
   'GET /api/v1/nps/visitorcenters/search': {
     action: 'nps/visitorcenters/search'
+  },
+  'GET /api/v1/nps/campgrounds/search': {
+    action: 'nps/campgrounds/search'
   }
 
 };

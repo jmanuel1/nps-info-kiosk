@@ -2,7 +2,7 @@
   <mat-card>
     <mat-card-title>{{park.fullName}}</mat-card-title>
     <mat-card-actions>
-      <mat-expansion-panel>
+      <mat-expansion-panel class="mat-elevation-z0">
         <mat-expansion-panel-header>
           <mat-panel-title>
             Visitor centers
@@ -11,8 +11,18 @@
 
         <app-visitor-center-list [centers]="centersResults.data"  *ngIf="centersResults">
         </app-visitor-center-list>
-          </mat-list-item>
-        </mat-list>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Campgrounds
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <app-campground-list [campgrounds]="campgroundsResults.data"
+          *ngIf="campgroundsResults">
+        </app-campground-list>
       </mat-expansion-panel>
     </mat-card-actions>
   </mat-card>
