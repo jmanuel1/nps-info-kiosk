@@ -1,7 +1,9 @@
 <div class="park-result">
   <mat-card>
-    <mat-card-title>{{park.fullName}}</mat-card-title>
-    <mat-card-actions>
+    <mat-card-title>
+      <a [routerLink]="['/park', park.parkCode]">{{park.fullName}}</a>
+    </mat-card-title>
+    <mat-card-actions> 
       <mat-expansion-panel class="mat-elevation-z0">
         <mat-expansion-panel-header>
           <mat-panel-title>
