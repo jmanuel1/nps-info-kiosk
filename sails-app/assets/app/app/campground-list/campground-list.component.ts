@@ -4,6 +4,7 @@ import { Component,
         ChangeDetectorRef,
         NgZone } from '@angular/core';
 import { point, distance, Coord } from '@turf/turf';
+import { LocationService } from '../location-picker/location.service';
 
 @Component({
   selector: 'app-campground-list',
@@ -15,9 +16,15 @@ export class CampgroundListComponent implements OnInit {
   private userLoc: Coord;
 
   constructor(private ref: ChangeDetectorRef, private zone: NgZone) {
+    LocationService.subscribeToLocation((loc: Coord) => {
+      this.userLocation = loc;
+    });
   }
 
   ngOnInit() {
+    // make sure to sort if user selected a location before this view was
+    // initialized
+    this.userLocation = LocationService.currentLocation;
   }
 
   private campgroundPoint(campground: Campground) {
@@ -42,6 +49,16 @@ export class CampgroundListComponent implements OnInit {
     this.zone.run(() => null);
   }
 
+  private sortCampgroundsByDistance() {
+    // Sort the campgrounds by distance to a user-set location, ascending
+    this.campgrounds.sort((campgroundA, campgroundB) => {
+      const pointA = this.campgroundPoint(campgroundA);
+      const pointB = this.campgroundPoint(campgroundB);
+      const origin = this.userLoc || point([0, 0]);
+      const distanceToA = distance(origin, pointA);
+      const distanceToB = distance(origin, pointB);
+      return distanceToA - distanceToB;
+    });
   }
 }
 
