@@ -61,7 +61,7 @@ try {
 } catch (e) {
   console.error('No API key for the NPS Data API!');
   console.error('Make sure to set an environment variable NPS_API_KEY=<your API key>.');
-  return;
+  return -1; // exit with non-zero to halt scripts
 }
 
 // Start server
