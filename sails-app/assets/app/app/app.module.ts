@@ -23,6 +23,7 @@ import { ParkResultComponent } from './park-result/park-result.component';
 import {
   VisitorCenterListComponent
  } from './visitor-center-list/visitor-center-list.component';
+import { SearchPageComponent } from './search-page/search-page.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import {
     SearchResultsComponent,
     ParkResultComponent,
     VisitorCenterListComponent
+    SearchPageComponent,
   ],
   imports: [
     BrowserModule,
