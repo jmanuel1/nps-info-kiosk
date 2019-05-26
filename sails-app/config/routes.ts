@@ -44,6 +44,9 @@ module.exports.routes = {
   },
   'GET /api/v1/nps/news-releases/search': {
     action: 'nps/news-releases/search'
+  },
+  'GET /api/v1/nps/lesson-plans/search': {
+    action: 'nps/lesson-plans/search'
   }
 
 };

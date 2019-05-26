@@ -46,5 +46,17 @@
         </mat-card-content>
       </mat-card>
     </mat-tab>
+    <mat-tab label="Educational Resources">
+      <mat-card>
+        <mat-card-title>Lesson Plans</mat-card-title>
+        <mat-card-content>
+          <mat-list>
+            <mat-list-item *ngFor="let plan of lessonPlans">
+              {{plan.title}}
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+    </mat-tab>
   </mat-tab-group>
 </div>

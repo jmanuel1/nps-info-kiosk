@@ -7,6 +7,7 @@ import { AlertsSearchService } from './alerts-search.service';
 import { ArticlesSearchService } from './articles-search.service';
 import { EventsSearchService } from './events-search.service';
 import { NewsReleasesSearchService } from './news-releases-search.service';
+import { LessonPlansSearchService } from './lesson-plans-search.service';
 
 @Component({
   selector: 'app-park-page',
@@ -18,6 +19,7 @@ import { NewsReleasesSearchService } from './news-releases-search.service';
     ArticlesSearchService,
     EventsSearchService,
     NewsReleasesSearchService,
+    LessonPlansSearchService
   ]
 })
 export class ParkPageComponent implements OnInit {
@@ -27,6 +29,7 @@ export class ParkPageComponent implements OnInit {
   articles: object[];
   events: object[];
   newsReleases: object[];
+  lessonPlans: object[];
 
   constructor(
     private route: ActivatedRoute,
@@ -35,6 +38,7 @@ export class ParkPageComponent implements OnInit {
     private articlesSearchService: ArticlesSearchService,
     private eventsSearchService: EventsSearchService,
     private newsReleasesSearchService: NewsReleasesSearchService,
+    private lessonPlansSearchService: LessonPlansSearchService
   ) {
   }
 
@@ -60,7 +64,11 @@ export class ParkPageComponent implements OnInit {
       this.newsReleasesSearchService.searchEntries({ parkCode: this.park.parkCode }).subscribe(({ results: newsReleasesResults }) => {
         this.newsReleases = newsReleasesResults.data;
       });
+      this.lessonPlansSearchService.searchEntries({ parkCode: this.park.parkCode }).subscribe(({ results: lessonsPlansResults }) => {
+        this.lessonPlans = lessonsPlansResults.data;
+      });
     });
+
   }
 
 }
