@@ -14,15 +14,23 @@ import { MatFormFieldModule,
          MatListModule,
          MatIconModule,
          MatCardModule,
-         MatExpansionModule } from '@angular/material';
+         MatExpansionModule,
+         MatButtonModule,
+         MatTabsModule } from '@angular/material';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import {
-   SearchResultsComponent
- } from './search-results/search-results.component';
+  SearchResultsComponent
+} from './search-results/search-results.component';
 import { ParkResultComponent } from './park-result/park-result.component';
 import {
   VisitorCenterListComponent
  } from './visitor-center-list/visitor-center-list.component';
+import {
+  CampgroundListComponent
+} from './campground-list/campground-list.component';
+import {
+  LocationPickerComponent
+} from './location-picker/location-picker.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 
 @NgModule({
@@ -31,8 +39,10 @@ import { SearchPageComponent } from './search-page/search-page.component';
     SearchBarComponent,
     SearchResultsComponent,
     ParkResultComponent,
-    VisitorCenterListComponent
-    SearchPageComponent,
+    VisitorCenterListComponent,
+    CampgroundListComponent,
+    LocationPickerComponent,
+    SearchPageComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +54,8 @@ import { SearchPageComponent } from './search-page/search-page.component';
     MatIconModule,
     MatCardModule,
     MatExpansionModule,
+    MatButtonModule,
+    MatTabsModule,
     HttpClientModule
   ],
   providers: [],
