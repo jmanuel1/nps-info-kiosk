@@ -35,7 +35,9 @@ export class SearchService {
 }
 
 export interface SearchResults {
-  results: object;
+  results: {
+    data: { fullName: string }[]
+  };
 }
 
 export class SearchParameters {
