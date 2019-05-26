@@ -26,17 +26,11 @@ export class SearchService {
   }
 
   private constructQueryURL(parameters: SearchParameters) {
-    const { term, state, designation } = parameters;
-    let queryURL = `?term=${term}`;
-
-    if (state.length > 0) {
-      queryURL += `&state=${state}`;
+    const params = new URLSearchParams();
+    for (const key of Object.keys(parameters)) {
+      params.append(key, parameters[key]);
     }
-    if (designation.length > 0) {
-      queryURL += `&designation=${designation}`;
-    }
-
-    return queryURL;
+    return '?' + params.toString();
   }
 }
 
