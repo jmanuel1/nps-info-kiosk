@@ -7,6 +7,7 @@ class Parameters {
   term: string;
   state: string;
   designation: string;
+  parkCode: string;
 }
 
 class NPSParameters {
@@ -18,7 +19,7 @@ class NPSParameters {
     return {
       q: parameters.term,
       stateCode: parameters.state,
-      parkCode: null
+      parkCode: parameters.parkCode
     };
   }
 }
@@ -59,10 +60,12 @@ function filterByDesignation(npsResponse, designation: string) {
 }
 
 function getParameters(req): Parameters {
+  // XXX: Can I do this in a less repetitive way?
   return {
     term: req.param('term'),
     state: req.param('state'),
-    designation: req.param('designation')
+    designation: req.param('designation'),
+    parkCode: req.param('parkCode')
   };
 }
 
