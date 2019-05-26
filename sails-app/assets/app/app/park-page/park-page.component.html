@@ -1,0 +1,50 @@
+<div class="park-page">
+  <h1>{{park.fullName}}</h1>
+  <mat-tab-group>
+    <mat-tab label="General Info">
+      <!-- TODO: Create a component to implement these cards -->
+      <mat-card>
+        <mat-card-title>
+          Park Alerts <mat-icon class="mat-warn">warning</mat-icon>
+        </mat-card-title>
+        <mat-card-content>
+          <mat-list>
+            <mat-list-item *ngFor="let alert of alerts">
+              {{alert.title}}
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+      <mat-card>
+        <mat-card-title>Articles</mat-card-title>
+        <mat-card-content>
+          <mat-list>
+            <mat-list-item *ngFor="let article of articles">
+              {{article.title}}
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+      <mat-card>
+        <mat-card-title>Events</mat-card-title>
+        <mat-card-content>
+          <mat-list>
+            <mat-list-item *ngFor="let event of events">
+              {{event.title}}
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+      <mat-card>
+        <mat-card-title>News Releases</mat-card-title>
+        <mat-card-content>
+          <mat-list>
+            <mat-list-item *ngFor="let release of newsReleases">
+              {{release.title}}
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+    </mat-tab>
+  </mat-tab-group>
+</div>

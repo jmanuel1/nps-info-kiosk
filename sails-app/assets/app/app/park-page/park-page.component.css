@@ -1,0 +1,15 @@
+mat-card {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+:host {
+  width: 75%;
+  margin: auto;
+  display: block;
+}
+
+mat-icon {
+  line-height: 20px;
+  vertical-align: middle;
+}
