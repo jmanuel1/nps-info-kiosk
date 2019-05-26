@@ -8,9 +8,11 @@ export class CampgroundsSearchService {
 
   constructor(private http: HttpClient) { }
 
-  searchEntries(params: CampgroundsSearchParameters): Observable<CampgroundsSearchResults> {
-    return this.http
-        .get<CampgroundsSearchResults>(this.baseUrl + this.constructQueryURL(params));
+  searchEntries(
+    params: CampgroundsSearchParameters
+  ): Observable<CampgroundsSearchResults> {
+    const url = this.baseUrl + this.constructQueryURL(params);
+    return this.http.get<CampgroundsSearchResults>(url);
   }
 
   private constructQueryURL(parameters: CampgroundsSearchParameters): string {

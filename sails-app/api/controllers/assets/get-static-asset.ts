@@ -25,8 +25,14 @@ module.exports = {
     const pth = isURLPathEmpty(this.req.path) ? 'index.html' : this.req.path;
     // Current working directory is root of sails project
     const pathToFile = path.join('assets/dist', pth);
-    const fileContents = fs.readFileSync(pathToFile, 'utf8');
-    return this.res.status(200).send(fileContents);
+    let fileContents;
+    try {
+      fileContents = fs.readFileSync(pathToFile, 'utf8');
+    } catch (err) {
+      // To be compatible with the client router, just get index.html
+      fileContents = fs.readFileSync('assets/dist/index.html');
+    }
+    return this.res.status(200).set('Content-Type', 'text/html').send(fileContents);
 
   }
 
