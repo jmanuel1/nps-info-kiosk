@@ -32,6 +32,7 @@ import {
   LocationPickerComponent
 } from './location-picker/location-picker.component';
 import { SearchPageComponent } from './search-page/search-page.component';
+import { ParkPageComponent } from './park-page/park-page.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { SearchPageComponent } from './search-page/search-page.component';
     VisitorCenterListComponent,
     CampgroundListComponent,
     LocationPickerComponent,
-    SearchPageComponent
+    SearchPageComponent,
+    ParkPageComponent
   ],
   imports: [
     BrowserModule,
