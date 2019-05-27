@@ -33,6 +33,7 @@ import {
 } from './location-picker/location-picker.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { ParkPageComponent } from './park-page/park-page.component';
+import { TitleListCardComponent } from './title-list-card/title-list-card.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { ParkPageComponent } from './park-page/park-page.component';
     CampgroundListComponent,
     LocationPickerComponent,
     SearchPageComponent,
-    ParkPageComponent
+    ParkPageComponent,
+    TitleListCardComponent
   ],
   imports: [
     BrowserModule,
