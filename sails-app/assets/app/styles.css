@@ -5,6 +5,7 @@
 /* Application-wide Styles */
 html, body, app-root {
   width: 100%;
+  margin: 0;
 }
 
 /* everywhere else */
