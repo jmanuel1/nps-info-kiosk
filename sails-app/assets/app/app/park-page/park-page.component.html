@@ -57,6 +57,29 @@
           </mat-list>
         </mat-card-content>
       </mat-card>
+      <mat-card>
+        <mat-card-title>People</mat-card-title>
+        <mat-card-content>
+          <mat-list>
+            <mat-list-item *ngFor="let person of people">
+              {{person.title}}
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+      <!-- <mat-card>
+        <mat-card-title>Related Places</mat-card-title>
+        <mat-card-content>
+          <mat-list>
+            <mat-list-item *ngFor="let place of places">
+              {{place.title}}
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card> -->
+      <app-title-list-card [list]="places">
+        Related Places
+      </app-title-list-card>
     </mat-tab>
   </mat-tab-group>
 </div>

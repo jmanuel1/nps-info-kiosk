@@ -8,6 +8,8 @@ import { ArticlesSearchService } from './articles-search.service';
 import { EventsSearchService } from './events-search.service';
 import { NewsReleasesSearchService } from './news-releases-search.service';
 import { LessonPlansSearchService } from './lesson-plans-search.service';
+import { PeopleSearchService } from './people-search.service';
+import { PlacesSearchService } from './places-search.service';
 
 @Component({
   selector: 'app-park-page',
@@ -19,7 +21,9 @@ import { LessonPlansSearchService } from './lesson-plans-search.service';
     ArticlesSearchService,
     EventsSearchService,
     NewsReleasesSearchService,
-    LessonPlansSearchService
+    LessonPlansSearchService,
+    PeopleSearchService,
+    PlacesSearchService
   ]
 })
 export class ParkPageComponent implements OnInit {
@@ -30,6 +34,8 @@ export class ParkPageComponent implements OnInit {
   events: object[];
   newsReleases: object[];
   lessonPlans: object[];
+  people: object[];
+  places: object[];
 
   constructor(
     private route: ActivatedRoute,
@@ -38,7 +44,9 @@ export class ParkPageComponent implements OnInit {
     private articlesSearchService: ArticlesSearchService,
     private eventsSearchService: EventsSearchService,
     private newsReleasesSearchService: NewsReleasesSearchService,
-    private lessonPlansSearchService: LessonPlansSearchService
+    private lessonPlansSearchService: LessonPlansSearchService,
+    private peopleSearchService: PeopleSearchService,
+    private placesSearchService: PlacesSearchService
   ) {
   }
 
@@ -52,20 +60,40 @@ export class ParkPageComponent implements OnInit {
     this.park$.subscribe(({ results }) => {
       this.park = results.data[0];
       // TODO: This code is WET
-      this.alertsSearchService.searchEntries({ parkCode: this.park.parkCode }).subscribe(({ results: alertsResults }) => {
+      this.alertsSearchService.searchEntries({
+        parkCode: this.park.parkCode
+      }).subscribe(({ results: alertsResults }) => {
         this.alerts = alertsResults.data;
       });
-      this.articlesSearchService.searchEntries({ parkCode: this.park.parkCode }).subscribe(({ results: articlesResults }) => {
+      this.articlesSearchService.searchEntries({
+        parkCode: this.park.parkCode
+      }).subscribe(({ results: articlesResults }) => {
         this.articles = articlesResults.data;
       });
-      this.eventsSearchService.searchEntries({ parkCode: this.park.parkCode }).subscribe(({ results: eventsResults }) => {
+      this.eventsSearchService.searchEntries({
+        parkCode: this.park.parkCode
+      }).subscribe(({ results: eventsResults }) => {
         this.events = eventsResults.data;
       });
-      this.newsReleasesSearchService.searchEntries({ parkCode: this.park.parkCode }).subscribe(({ results: newsReleasesResults }) => {
+      this.newsReleasesSearchService.searchEntries({
+        parkCode: this.park.parkCode
+      }).subscribe(({ results: newsReleasesResults }) => {
         this.newsReleases = newsReleasesResults.data;
       });
-      this.lessonPlansSearchService.searchEntries({ parkCode: this.park.parkCode }).subscribe(({ results: lessonsPlansResults }) => {
+      this.lessonPlansSearchService.searchEntries({
+        parkCode: this.park.parkCode
+      }).subscribe(({ results: lessonsPlansResults }) => {
         this.lessonPlans = lessonsPlansResults.data;
+      });
+      this.peopleSearchService.searchEntries({
+        parkCode: this.park.parkCode
+      }).subscribe(({ results: peopleResults }) => {
+        this.people = peopleResults.data;
+      });
+      this.placesSearchService.searchEntries({
+        parkCode: this.park.parkCode
+      }).subscribe(({ results: placesResults }) => {
+        this.places = placesResults.data;
       });
     });
 
