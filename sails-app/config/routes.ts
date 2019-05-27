@@ -50,6 +50,9 @@ module.exports.routes = {
   },
   'GET /api/v1/nps/people/search': {
     action: 'nps/people/search'
+  },
+  'GET /api/v1/nps/places/search': {
+    action: 'nps/places/search'
   }
 
 };
