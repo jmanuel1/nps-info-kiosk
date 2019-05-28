@@ -2,81 +2,26 @@
   <h1>{{park.fullName}}</h1>
   <mat-tab-group>
     <mat-tab label="General Info">
-      <!-- TODO: Create a component to implement these cards -->
-      <mat-card>
-        <mat-card-title>
-          Park Alerts <mat-icon class="mat-warn">warning</mat-icon>
-        </mat-card-title>
-        <mat-card-content>
-          <mat-list>
-            <mat-list-item *ngFor="let alert of alerts">
-              {{alert.title}}
-            </mat-list-item>
-          </mat-list>
-        </mat-card-content>
-      </mat-card>
-      <mat-card>
-        <mat-card-title>Articles</mat-card-title>
-        <mat-card-content>
-          <mat-list>
-            <mat-list-item *ngFor="let article of articles">
-              {{article.title}}
-            </mat-list-item>
-          </mat-list>
-        </mat-card-content>
-      </mat-card>
-      <mat-card>
-        <mat-card-title>Events</mat-card-title>
-        <mat-card-content>
-          <mat-list>
-            <mat-list-item *ngFor="let event of events">
-              {{event.title}}
-            </mat-list-item>
-          </mat-list>
-        </mat-card-content>
-      </mat-card>
-      <mat-card>
-        <mat-card-title>News Releases</mat-card-title>
-        <mat-card-content>
-          <mat-list>
-            <mat-list-item *ngFor="let release of newsReleases">
-              {{release.title}}
-            </mat-list-item>
-          </mat-list>
-        </mat-card-content>
-      </mat-card>
+      <app-title-list-card [list]="alerts">
+        Park Alerts <mat-icon class="mat-warn">warning</mat-icon>
+      </app-title-list-card>
+      <app-title-list-card [list]="articles">
+        Articles
+      </app-title-list-card>
+      <app-title-list-card [list]="events">
+        Events
+      </app-title-list-card>
+      <app-title-list-card [list]="newsReleases">
+        News Releases
+      </app-title-list-card>
     </mat-tab>
     <mat-tab label="Educational Resources">
-      <mat-card>
-        <mat-card-title>Lesson Plans</mat-card-title>
-        <mat-card-content>
-          <mat-list>
-            <mat-list-item *ngFor="let plan of lessonPlans">
-              {{plan.title}}
-            </mat-list-item>
-          </mat-list>
-        </mat-card-content>
-      </mat-card>
-      <mat-card>
-        <mat-card-title>People</mat-card-title>
-        <mat-card-content>
-          <mat-list>
-            <mat-list-item *ngFor="let person of people">
-              {{person.title}}
-            </mat-list-item>
-          </mat-list>
-        </mat-card-content>
-      </mat-card>
-      <!-- <mat-card>
-        <mat-card-title>Related Places</mat-card-title>
-        <mat-card-content>
-          <mat-list>
-            <mat-list-item *ngFor="let place of places">
-              {{place.title}}
-            </mat-list-item>
-          </mat-list>
-        </mat-card-content>
-      </mat-card> -->
+      <app-title-list-card [list]="lessonPlans">
+        Lesson Plans
+      </app-title-list-card>
+      <app-title-list-card [list]="people">
+        People
+      </app-title-list-card>
       <app-title-list-card [list]="places">
         Related Places
       </app-title-list-card>
