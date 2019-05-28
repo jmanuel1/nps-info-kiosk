@@ -55,6 +55,7 @@ module.exports = async function search(req: Request, res: Response) {
 function arrangeAddresses(npsResponse: NPSResponse) {
   const data = npsResponse.data.map((campground) => {
     const addresses = campground.addresses;
+    // NOTE: this can throw if campground.addresses doesn't exist
     const physical = addresses.filter((address) => {
       return address.type === 'Physical';
     })[0];
