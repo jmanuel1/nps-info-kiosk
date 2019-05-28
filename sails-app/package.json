@@ -66,7 +66,7 @@
     "start:debug": "npm-run-all --parallel open:client debug",
     "open:client": "ng serve --open",
     "build": "npm run build:prod",
-    "build:dev": "ng build --watch",
+    "build:dev": "ng build --watch --aot",
     "build:prod": "ng build --prod --deploy-url=dist",
     "build:aot": "ng build --aot --deploy-url=dist",
     "clean": "rimraf assets/dist",

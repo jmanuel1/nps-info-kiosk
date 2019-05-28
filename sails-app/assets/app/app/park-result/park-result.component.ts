@@ -10,25 +10,29 @@ import { CampgroundsSearchService } from '../campground-search.service';
 })
 export class ParkResultComponent implements OnInit {
   @Input() park: Park;
-  private centersResults: object;
-  private campgroundsResults: object;
+  centersResults: object;
+  campgroundsResults: object;
 
-  constructor(private centersSearchService: SearchService, private campgroundsSearchService: CampgroundsSearchService) {
-    ((x) => x)(this.centersResults);
-    ((x) => x)(this.campgroundsResults);
+  constructor(
+    private centersSearchService: SearchService,
+    private campgroundsSearchService: CampgroundsSearchService
+  ) {
   }
 
   ngOnInit() {
-    this.centersSearchService.searchEntries({parkCode: this.park.parkCode}).subscribe((results) => {
-      this.centersResults = results.results;
-    });
-    this.campgroundsSearchService.searchEntries({parkCode: this.park.parkCode}).subscribe((results) => {
-      this.campgroundsResults = results.results;
-    });
+    this.centersSearchService.searchEntries({parkCode: this.park.parkCode})
+      .subscribe((results) => {
+        this.centersResults = results.results;
+      });
+    this.campgroundsSearchService.searchEntries({parkCode: this.park.parkCode})
+      .subscribe((results) => {
+        this.campgroundsResults = results.results;
+      });
   }
 
 }
 
 class Park {
   parkCode: string;
+  fullName: string;
 }

@@ -3,7 +3,7 @@
     <mat-card-title>
       <a [routerLink]="['/park', park.parkCode]">{{park.fullName}}</a>
     </mat-card-title>
-    <mat-card-actions> 
+    <mat-card-actions>
       <mat-expansion-panel class="mat-elevation-z0">
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -11,7 +11,8 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
 
-        <app-visitor-center-list [centers]="centersResults.data"  *ngIf="centersResults">
+        <app-visitor-center-list [centers]="centersResults.data"
+          *ngIf="centersResults">
         </app-visitor-center-list>
       </mat-expansion-panel>
 
