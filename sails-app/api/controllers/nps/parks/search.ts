@@ -1,49 +1,42 @@
-import { request } from 'https';
-import { stringify } from 'querystring';
+import { Request, Response } from 'express';
+import { NPSResponse, fulfillSearchRequest } from '../nps-data-api';
+import * as Fuse from 'fuse.js';
 
-declare var sails: any;
-
-class Parameters {
-  term: string;
-  state: string;
+// Some intermediate types are used to properly extend the NPSResponse
+// interface
+type NPSResponseDatum = NPSResponse['data'][0];
+interface NPSParksResponseDatum extends NPSResponseDatum {
   designation: string;
-  parkCode: string;
 }
-
-class NPSParameters {
-  parkCode: string;
-  stateCode: string;
-  q: string;
-
-  static fromOurParameters(parameters: Parameters): NPSParameters {
-    return {
-      q: parameters.term,
-      stateCode: parameters.state,
-      parkCode: parameters.parkCode
-    };
-  }
+interface NPSParksResponse extends NPSResponse {
+  data: NPSParksResponseDatum[];
 }
 
 /* NOTE and shrug: For some unknown reason, using a machine action doesn't work
 /* because something else finishes the request early. */
-module.exports = async function search(req, res) {
-    let NPS_API_KEY;
-    // app.js guarantees that the API key exists
-    NPS_API_KEY = getNPSAPIKey();
-    const parameters = getParameters(req);
-    const npsParameters = NPSParameters.fromOurParameters(parameters);
-    const npsResponse =
-      await makeNPSRequest('GET', '/parks', npsParameters, NPS_API_KEY);
-    const ourResponse = {
-      results: filterByDesignation(npsResponse, parameters.designation)
-    };
+// TODO: search by user-friendly state names as well as state codes
+module.exports = async function search(req: Request, res: Response) {
+  await fulfillSearchRequest(
+    req,
+    res,
+    {
+      endpoint: '/parks',
+      responseTransform: designationFilter(req.param('designation')),
+      ourParameters: [ 'term', 'state' ],
+      parameterMapping: { term: 'q', state: 'stateCode' }
+    }
+  );
+};
 
-    // sails.log.debug(res.getHeaders());
-    res.status(200).write(JSON.stringify(ourResponse));
-    return res.end();
+function designationFilter(designation: string) {
+  return (npsResponse: NPSParksResponse) => {
+    return filterByDesignation(npsResponse, designation);
   };
+}
 
-function filterByDesignation(npsResponse, designation: string) {
+function filterByDesignation(
+  npsResponse: NPSParksResponse, designation: string
+) {
   const parks = npsResponse.data;
 
   // Don't filter if no designation has been specified
@@ -51,68 +44,20 @@ function filterByDesignation(npsResponse, designation: string) {
     return npsResponse;
   }
 
-  // TODO: Don't use exact matching
-  const filteredParks = parks.filter((park) => {
-    return park.designation === designation;
-  });
+  // fuzzy search
+  const searchOptions = {
+    shouldSort: true,
+    threshold: 0.6,
+    location: 0,
+    distance: 100,
+    maxPatternLength: 32,
+    minMatchCharLength: 1,
+    keys: [
+      'designation'
+    ]
+  };
+  const fuse = new Fuse(parks, searchOptions);
+  const filteredParks = fuse.search(designation);
 
   return { ...npsResponse, data: filteredParks };
-}
-
-function getParameters(req): Parameters {
-  // XXX: Can I do this in a less repetitive way?
-  return {
-    term: req.param('term'),
-    state: req.param('state'),
-    designation: req.param('designation'),
-    parkCode: req.param('parkCode')
-  };
-}
-
-function makeNPSRequest(
-  method: string,
-  endpoint: string,
-  parameters: NPSParameters,
-  apiKey: string): Promise<object> {
-  let normalizedEndpoint: string;
-  if (endpoint[0] === '/') {
-    normalizedEndpoint = endpoint;
-  } else {
-    normalizedEndpoint = '/' + endpoint;
-  }
-
-  const query = stringify(parameters);
-
-  return new Promise((resolve, reject) => {
-    const req = request({
-      headers: { 'X-Api-Key': apiKey },
-      method,
-      hostname: 'developer.nps.gov',
-      path: `/api/v1${normalizedEndpoint}?${query}`,
-      agent: false
-    }, (res) => {
-      res.setEncoding('utf8');
-      let body = '';
-      res.on('data', (chunk) => {
-        body += chunk;
-      });
-      res.on('end', () => {
-        sails.log.debug('The response body from the NPS Data API:');
-        sails.log.debug(body);
-        resolve(JSON.parse(body));
-      });
-    });
-    req.end(); // must close the request, or we get a 'socket hang up' error
-  });
-}
-
-function getNPSAPIKey(): string {
-  // Get the API key from an environment variable
-  const key = process.env.NPS_API_KEY;
-
-  if (!key) {
-    throw new Error('No NPS API key');
-  }
-
-  return key;
 }

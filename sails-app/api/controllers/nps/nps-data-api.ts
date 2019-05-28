@@ -22,8 +22,16 @@ export class NPSParameters {
   parkCode: string;
   fields: string[];
 
-  static fromOurParameters(parameters: Parameters): NPSParameters {
+  static fromOurParameters(
+    parameters: Parameters,
+    parameterMapping: { [ param: string ]: string } = {}
+  ): NPSParameters {
     const npsParameters = new NPSParameters();
+    for (const param in parameterMapping) {
+      if (parameterMapping.hasOwnProperty(param)) {
+        npsParameters[parameterMapping[param]] = parameters[param];
+      }
+    }
     npsParameters.parkCode = parameters.parkCode;
     npsParameters.fields = [ 'addresses' ];
 
@@ -45,12 +53,23 @@ export interface NPSResponse {
 export interface SearchOptions {
   endpoint: string;
   responseTransform?: (npsResponse: NPSResponse) => any;
+  ourParameters?: string[];
+  parameterMapping?: { [ parameter: string ]: string };
 }
 
-export async function fulfillSearchRequest(req: Request, res: Response, { endpoint, responseTransform = (x) => x }: SearchOptions) {
+export async function fulfillSearchRequest(
+  req: Request,
+  res: Response,
+  {
+    endpoint,
+    responseTransform = (x) => x,
+    ourParameters = [],
+    parameterMapping = {}
+  }: SearchOptions
+) {
   const NPS_API_KEY = sails.helpers.getNpsApiKey();
-  const parameters = getParameters(req);
-  const npsParameters = NPSParameters.fromOurParameters(parameters);
+  const parameters = getParameters(req, ourParameters);
+  const npsParameters = NPSParameters.fromOurParameters(parameters, parameterMapping);
   const npsResponse: NPSResponse =
     await makeNPSRequest('GET', endpoint, npsParameters, NPS_API_KEY);
   const ourResponse = {
@@ -76,8 +95,15 @@ export function arrangeAddresses(npsResponse: NPSResponse) {
   return { ...npsResponse, data };
 }
 
-export function getParameters(req: Request): Parameters {
+export function getParameters(
+  req: Request, params: string[] = []
+): Parameters {
+  const paramObject = {};
+  for (const param of params) {
+    paramObject[param] = req.param(param);
+  }
   return {
+    ...paramObject,
     parkCode: req.param('parkCode')
   };
 }
