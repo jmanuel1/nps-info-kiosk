@@ -35,7 +35,8 @@ export class CampgroundListComponent implements OnInit {
 
     // The keys in latLongString aren't in quotes, so we can't immediately
     // JSON.parse
-    const latLongJSON = latLongString.replace('lat', '"lat"').replace('lng', '"lng"');
+    const latLongJSON =
+      latLongString.replace('lat', '"lat"').replace('lng', '"lng"');
     const originalLatLong = JSON.parse(latLongJSON);
     return point([ originalLatLong.lat, originalLatLong.lng ]);
   }

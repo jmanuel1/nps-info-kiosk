@@ -1,11 +1,20 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { point, Coord, getCoord } from '@turf/turf';
 import { LocationService } from './location.service';
+// NOTE: Since the leaflet npm package is not actually installed, this import
+// must be used ONLY for type information so that Typescript erases at in
+// runtime. See https://www.typescriptlang.org/docs/handbook/modules.html
+// "Optional Module Loading and Other Advanced Loading Scenarios"
+import * as Leaflet from 'leaflet';
 
-declare let L: any; // from npmap.js/leaflet
+declare const L: typeof Leaflet; // from npmap.js/leaflet
 declare global {
   interface Window {
-    NPMap: any;
+    NPMap: {
+      div: string,
+      hooks: object,
+      config?: { L: Leaflet.Map }
+    };
   }
 }
 
@@ -18,7 +27,7 @@ export class LocationPickerComponent implements OnInit {
 
   isMapOpen: boolean;
   location: Coord;
-  marker: any; // TODO: leaflet typings?
+  marker: Leaflet.Marker;
 
   constructor(private zone: NgZone) {
 
@@ -30,7 +39,8 @@ export class LocationPickerComponent implements OnInit {
       hooks: {
         init: (callback: () => void) => {
           this.marker = L.marker([0, 0]).addTo(window.NPMap.config.L);
-          window.NPMap.config.L.on('click', (e: any) => this.setLocation(e));
+          window.NPMap.config.L.on('click', (e: Leaflet.LeafletMouseEvent) =>
+            this.setLocation(e));
           window.NPMap.config.L.on('mouseout', () => this.closeMap());
           callback();
         }
@@ -51,7 +61,7 @@ export class LocationPickerComponent implements OnInit {
     this.zone.run(() => null);
   }
 
-  setLocation(event: any) {
+  setLocation(event: Leaflet.LeafletMouseEvent) {
     console.dir(event);
     this.location = point([event.latlng.lat, event.latlng.lng]);
     this.updateMarker(this.location);
@@ -59,6 +69,7 @@ export class LocationPickerComponent implements OnInit {
   }
 
   updateMarker(location: Coord) {
-    this.marker.setLatLng(getCoord(location));
+    const coord = getCoord(location);
+    this.marker.setLatLng([coord[0], coord[1]]);
   }
 }
