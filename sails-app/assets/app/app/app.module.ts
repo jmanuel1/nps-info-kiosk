@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import {
   BrowserAnimationsModule
 } from '@angular/platform-browser/animations';
-// TODO: Add autocomplete later
+
 import { MatFormFieldModule,
          MatInputModule,
          MatListModule,
@@ -16,7 +16,9 @@ import { MatFormFieldModule,
          MatCardModule,
          MatExpansionModule,
          MatButtonModule,
-         MatTabsModule } from '@angular/material';
+         MatTabsModule,
+         MatAutocompleteModule } from '@angular/material';
+
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import {
   SearchResultsComponent
@@ -60,6 +62,7 @@ import { TitleListCardComponent } from './title-list-card/title-list-card.compon
     MatExpansionModule,
     MatButtonModule,
     MatTabsModule,
+    MatAutocompleteModule,
     HttpClientModule
   ],
   providers: [],

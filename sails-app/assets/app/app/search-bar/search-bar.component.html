@@ -2,8 +2,14 @@
   <div id='main-search'>
     <mat-form-field>
       <input matInput placeholder="Search parks"
-        (keyup)="searchParameters$.nextSearchTerm($event.target.value)">
+        (keyup)="searchParameters$.nextSearchTerm($event.target.value)"
+        [matAutocomplete]="auto">
     </mat-form-field>
+    <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
+      <mat-option *ngFor="let option of autocompleteOptions" [value]="option">
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
     <mat-icon>search</mat-icon>
   </div>
   <div id='filter-fields'>

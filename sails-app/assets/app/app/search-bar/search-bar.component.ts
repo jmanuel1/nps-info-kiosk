@@ -11,13 +11,17 @@ import { Subject } from 'rxjs';
   providers: [SearchService]
 })
 export class SearchBarComponent implements OnInit {
-  results: object;
+  results: SearchResults['results'];
   searchParameters$ = new SearchSubject();
+  autocompleteOptions: string[];
 
   constructor(private searchService: SearchService) {
     this.searchService.search(this.searchParameters$)
       .subscribe((results: SearchResults) => {
         this.results = results.results;
+        this.autocompleteOptions = this.results.data.map((park) => {
+          return park.fullName;
+        });
       });
   }
 
