@@ -1,1 +1,1 @@
-web: cd sails-app && yarn && yarn run start:prod
+web: cd sails-app && node app.js --prod
