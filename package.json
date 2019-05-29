@@ -3,6 +3,7 @@
     "heroku-postbuild": "cd sails-app && yarn && yarn run start:prod"
   },
   "engines": {
-    "yarn": "1.16.0"
+    "yarn": "1.16.0",
+    "node": "8.11.3"
   }
 }
