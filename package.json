@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "build": "cd sails-app && yarn && yarn run build:prod",
+    "//heroku-postbuild": "cd sails-app && yarn && yarn run build:prod && yarn run prod"
+  },
+  "engines": {
+    "yarn": "1.16.0",
+    "node": "8.11.3"
+  }
+}
