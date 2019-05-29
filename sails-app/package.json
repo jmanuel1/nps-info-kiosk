@@ -27,7 +27,6 @@
     "sails-hook-apianalytics": "^2.0.3",
     "sails-hook-organics": "^0.15.0",
     "sails-hook-orm": "^2.1.1",
-    "sails-hook-sockets": "^1.5.5",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
   },
@@ -64,13 +63,14 @@
   "scripts": {
     "start": "npm-run-all --parallel build:dev dev",
     "start:debug": "npm-run-all --parallel open:client debug",
+    "start:prod": "npm-run-all --parallel build:prod prod",
     "open:client": "ng serve --open",
     "build": "npm run build:prod",
     "build:dev": "ng build --watch --aot",
-    "build:prod": "ng build --prod --deploy-url=dist",
-    "build:aot": "ng build --aot --deploy-url=dist",
+    "build:prod": "ng build --prod",
+    "build:aot": "ng build --aot",
     "clean": "rimraf assets/dist",
-    "prod": "node app.js -- --prod",
+    "prod": "node app.js --prod",
     "dev": "node app.js -- --dev",
     "debug": "node --inspect app.js"
   },
