@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "heroku-postbuild": "cd sails-app && yarn && yarn run start:prod"
+  }
+}
