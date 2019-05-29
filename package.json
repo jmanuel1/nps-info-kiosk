@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "postinstall": "cd sails-app && yarn && yarn run build:prod",
+    "build": "cd sails-app && yarn && yarn run build:prod",
     "//heroku-postbuild": "cd sails-app && yarn && yarn run build:prod && yarn run prod"
   },
   "engines": {
