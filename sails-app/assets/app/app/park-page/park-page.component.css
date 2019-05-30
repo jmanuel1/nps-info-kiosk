@@ -12,7 +12,7 @@ mat-card, app-title-list-card {
   display: block;
 }
 
-mat-icon {
+mat-icon, app-nps-symbol {
   line-height: 20px;
   vertical-align: middle;
 }

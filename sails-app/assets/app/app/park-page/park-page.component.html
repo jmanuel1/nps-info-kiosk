@@ -3,7 +3,11 @@
   <mat-tab-group>
     <mat-tab label="General Info">
       <app-title-list-card [list]="alerts">
-        Park Alerts <mat-icon class="mat-warn">warning</mat-icon>
+        Park Alerts
+        <!-- use mat-icon so that the warn color is applied -->
+        <app-nps-symbol class="mat-icon mat-warn"
+          symbolName="safety-caution-alerts">
+        </app-nps-symbol>
       </app-title-list-card>
       <app-title-list-card [list]="articles">
         Articles
