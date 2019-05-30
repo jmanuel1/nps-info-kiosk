@@ -37,7 +37,10 @@ import {
 } from './location-picker/location-picker.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { ParkPageComponent } from './park-page/park-page.component';
-import { TitleListCardComponent } from './title-list-card/title-list-card.component';
+import {
+  TitleListCardComponent
+} from './title-list-card/title-list-card.component';
+import { NpsSymbolComponent } from './nps-symbol/nps-symbol.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +53,8 @@ import { TitleListCardComponent } from './title-list-card/title-list-card.compon
     LocationPickerComponent,
     SearchPageComponent,
     ParkPageComponent,
-    TitleListCardComponent
+    TitleListCardComponent,
+    NpsSymbolComponent
   ],
   imports: [
     BrowserModule,
