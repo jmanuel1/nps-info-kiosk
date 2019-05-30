@@ -1,5 +1,4 @@
-/* @import '~@angular/material/theming';
-
-mat-expansion-panel {
-  @include mat-elevation(0);
-} */
+mat-panel-title {
+  vertical-align: middle;
+  align-items: center;
+}
