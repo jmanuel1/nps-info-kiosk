@@ -40,9 +40,9 @@ module.exports = {
 
 };
 
-function getContentType(pth: string) {
+function getContentType(pth: string): string {
   const extension = path.extname(pth);
-  const typeMap = { '.css': 'text/css' };
+  const typeMap = { '.css': 'text/css', '.svg': 'image/svg+xml' };
   return typeMap[extension] || 'text/html';
 }
 
