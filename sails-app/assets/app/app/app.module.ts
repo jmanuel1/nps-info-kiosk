@@ -19,6 +19,8 @@ import { MatFormFieldModule,
          MatTabsModule,
          MatAutocompleteModule } from '@angular/material';
 
+import { InlineSVGModule } from 'ng-inline-svg';
+
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import {
   SearchResultsComponent
@@ -63,7 +65,8 @@ import { TitleListCardComponent } from './title-list-card/title-list-card.compon
     MatButtonModule,
     MatTabsModule,
     MatAutocompleteModule,
-    HttpClientModule
+    HttpClientModule,
+    InlineSVGModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

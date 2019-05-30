@@ -8136,6 +8136,11 @@ netmask@^1.0.6:
   resolved "https://registry.yarnpkg.com/netmask/-/netmask-1.0.6.tgz#20297e89d86f6f6400f250d9f4f6b4c1945fcd35"
   integrity sha1-ICl+idhvb2QA8lDZ9Pa0wZRfzTU=
 
+ng-inline-svg@^8.4.1:
+  version "8.4.1"
+  resolved "https://registry.yarnpkg.com/ng-inline-svg/-/ng-inline-svg-8.4.1.tgz#6e3819161104a7fff40d5e0f6739f3f5c2aa6825"
+  integrity sha512-gqAw1FY6ZAmFjHw0fkIhvdIMzM4/Hb6Az4Jm0dHFsJqZeXsbcp8pGnzo00qvzBkch/zgvHoHCwmDqWHQaIK6zA==
+
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
