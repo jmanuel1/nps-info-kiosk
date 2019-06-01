@@ -13,7 +13,8 @@ declare global {
     NPMap: {
       div: string,
       hooks: object,
-      config?: { L: Leaflet.Map }
+      config?: { L: Leaflet.Map },
+      locateControl: boolean
     };
   }
 }
@@ -41,10 +42,17 @@ export class LocationPickerComponent implements OnInit {
           this.marker = L.marker([0, 0]).addTo(window.NPMap.config.L);
           window.NPMap.config.L.on('click', (e: Leaflet.LeafletMouseEvent) =>
             this.setLocation(e));
+          // TODO: Don't close map on mouseout when asking for geolocate
+          // permission
           window.NPMap.config.L.on('mouseout', () => this.closeMap());
+          window.NPMap.config.L.on('locationfound', (e: Leaflet.LocationEvent) =>
+            this.setLocation(e));
+          window.NPMap.config.L.on('locationerror', () =>
+            this.onGeolocateFail());
           callback();
         }
-      }
+      },
+      locateControl: true
     };
     const s = document.createElement('script');
     s.src = 'https://www.nps.gov/lib/npmap.js/4.0.0/npmap-bootstrap.js';
@@ -61,7 +69,7 @@ export class LocationPickerComponent implements OnInit {
     this.zone.run(() => null);
   }
 
-  setLocation(event: Leaflet.LeafletMouseEvent) {
+  setLocation(event: Leaflet.LeafletMouseEvent | Leaflet.LocationEvent) {
     console.dir(event);
     this.location = point([event.latlng.lat, event.latlng.lng]);
     this.updateMarker(this.location);
@@ -71,5 +79,10 @@ export class LocationPickerComponent implements OnInit {
   updateMarker(location: Coord) {
     const coord = getCoord(location);
     this.marker.setLatLng([coord[0], coord[1]]);
+  }
+
+  onGeolocateFail() {
+    // TODO: Use proper error notification
+    alert('Error retrieving your location.');
   }
 }
