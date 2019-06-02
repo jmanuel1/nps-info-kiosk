@@ -2,7 +2,6 @@
  * Module dependencies
  */
 
-import { request } from 'https';
 import { stringify } from 'querystring';
 import { Request, Response } from 'express';
 import { arrangeAddresses, makeNPSRequest } from '../nps-data-api';
@@ -38,7 +37,7 @@ interface NPSResponse {
 }
 
 /**
- * nps/visitorcenters/search.js
+ * nps/visitorcenters/search.ts
  *
  * Search for visitor centers.
  */
@@ -60,44 +59,4 @@ function getParameters(req: Request): Parameters {
   return {
     parkCode: req.param('parkCode')
   };
-}
-
-function makeNPSRequest(
-  method: string,
-  endpoint: string,
-  parameters: NPSParameters,
-  apiKey: string): Promise<NPSResponse> {
-  let normalizedEndpoint: string;
-  if (endpoint[0] === '/') {
-    normalizedEndpoint = endpoint;
-  } else {
-    normalizedEndpoint = '/' + endpoint;
-  }
-
-  const query = parameters.toQueryString();
-
-  return new Promise((resolve, reject) => {
-    const req = request({
-      headers: { 'X-Api-Key': apiKey },
-      method,
-      hostname: 'developer.nps.gov',
-      path: `/api/v1${normalizedEndpoint}?${query}`,
-      agent: false
-    }, (res) => {
-      res.setEncoding('utf8');
-      let body = '';
-      res.on('data', (chunk) => {
-        body += chunk;
-      });
-      res.on('end', () => {
-        sails.log.debug('The response body from the NPS Data API:');
-        sails.log.debug(body);
-        resolve(JSON.parse(body));
-      });
-    });
-    req.on('error', () => {
-      reject(new Error('Failed to access the NPS Data API!'));
-    });
-    req.end(); // must close the request, or we get a 'socket hang up' error
-  });
 }

@@ -1,5 +1,5 @@
 /**
- * nps/nps-data-api/ts
+ * nps/nps-data-api.ts
  *
  * Wrappers around the NPS Data API to make it more pleasant.
  */
@@ -69,7 +69,8 @@ export async function fulfillSearchRequest(
 ) {
   const NPS_API_KEY = sails.helpers.getNpsApiKey();
   const parameters = getParameters(req, ourParameters);
-  const npsParameters = NPSParameters.fromOurParameters(parameters, parameterMapping);
+  const npsParameters =
+    NPSParameters.fromOurParameters(parameters, parameterMapping);
   const npsResponse: NPSResponse =
     await makeNPSRequest('GET', endpoint, npsParameters, NPS_API_KEY);
   const ourResponse = {
@@ -116,7 +117,8 @@ export function makeNPSRequest(
   method: string,
   endpoint: string,
   parameters: NPSParameters,
-  apiKey: string): Promise<NPSResponse> {
+  apiKey: string
+): Promise<NPSResponse> {
   let normalizedEndpoint: string;
   if (endpoint[0] === '/') {
     normalizedEndpoint = endpoint;
@@ -142,7 +144,14 @@ export function makeNPSRequest(
       res.on('end', () => {
         sails.log.debug('The response body from the NPS Data API:');
         sails.log.debug(body);
-        resolve(JSON.parse(body));
+        try {
+          resolve(JSON.parse(body));
+        } catch (err) { // sometimes we get something unexpected
+          sails.log.error('Failed to parse response!');
+          sails.log.error(err);
+          sails.log.error(`Endpoint: ${endpoint}`);
+          reject(err);
+        }
       });
     });
     req.on('error', () => {
