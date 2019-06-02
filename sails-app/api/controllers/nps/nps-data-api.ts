@@ -80,13 +80,17 @@ export async function fulfillSearchRequest(
 }
 
 export function arrangeAddresses(npsResponse: NPSResponse) {
-  const data = npsResponse.data.map((center) => {
-    const addresses = center.addresses;
+  const data = npsResponse.data.map((location) => {
+    const addresses = location.addresses;
+    // Don't do anything if there are no addresses
+    if (!addresses) {
+      return location;
+    }
     const physical = addresses.filter((address) => {
       return address.type === 'Physical';
     })[0];
     return {
-      ...center,
+      ...location,
       addresses: {
         physical
       }

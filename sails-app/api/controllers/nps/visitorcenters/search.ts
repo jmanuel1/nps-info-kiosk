@@ -5,6 +5,7 @@
 import { request } from 'https';
 import { stringify } from 'querystring';
 import { Request, Response } from 'express';
+import { arrangeAddresses, makeNPSRequest } from '../nps-data-api';
 
 declare var sails: any;
 
@@ -54,22 +55,6 @@ module.exports = async function search(req: Request, res: Response) {
   res.status(200).write(JSON.stringify(ourResponse));
   return res.end();
 };
-
-function arrangeAddresses(npsResponse: NPSResponse) {
-  const data = npsResponse.data.map((center) => {
-    const addresses = center.addresses;
-    const physical = addresses.filter((address) => {
-      return address.type === 'Physical';
-    })[0];
-    return {
-      ...center,
-      addresses: {
-        physical
-      }
-    };
-  });
-  return { ...npsResponse, data };
-}
 
 function getParameters(req: Request): Parameters {
   return {

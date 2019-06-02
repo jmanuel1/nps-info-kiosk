@@ -5,6 +5,7 @@
 import { request } from 'https';
 import { stringify } from 'querystring';
 import { Request, Response } from 'express';
+import { arrangeAddresses, makeNPSRequest } from '../nps-data-api';
 
 declare var sails: any;
 
@@ -51,23 +52,6 @@ module.exports = async function search(req: Request, res: Response) {
   res.status(200).write(JSON.stringify(ourResponse));
   return res.end();
 };
-
-function arrangeAddresses(npsResponse: NPSResponse) {
-  const data = npsResponse.data.map((campground) => {
-    const addresses = campground.addresses;
-    // NOTE: this can throw if campground.addresses doesn't exist
-    const physical = addresses.filter((address) => {
-      return address.type === 'Physical';
-    })[0];
-    return {
-      ...campground,
-      addresses: {
-        physical
-      }
-    };
-  });
-  return { ...npsResponse, data };
-}
 
 function getParameters(req: Request): Parameters {
   return {
