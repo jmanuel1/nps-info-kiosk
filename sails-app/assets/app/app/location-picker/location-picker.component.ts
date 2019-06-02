@@ -26,7 +26,7 @@ declare global {
 })
 export class LocationPickerComponent implements OnInit {
 
-  isMapOpen: boolean;
+  isMapOpen = false;
   location: Coord;
   marker: Leaflet.Marker;
 
@@ -61,6 +61,12 @@ export class LocationPickerComponent implements OnInit {
 
   toggleMap() {
     this.isMapOpen = !this.isMapOpen;
+    if (this.isMapOpen) {
+      const map = window.NPMap.config.L;
+      // this line is needed to get the map tiles to render correctly since the
+      // map is initially hidden
+      L.Util.requestAnimFrame(() => map.invalidateSize(), map, false);
+    }
   }
 
   closeMap() {

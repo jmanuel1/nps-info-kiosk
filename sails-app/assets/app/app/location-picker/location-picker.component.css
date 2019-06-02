@@ -1,7 +1,13 @@
 #map {
   height: 300px;
+  width: 500px;
 }
 
 .closed {
   display: none;
+}
+
+:host {
+  display: block;
+  position: relative;
 }
