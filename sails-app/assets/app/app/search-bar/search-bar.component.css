@@ -27,6 +27,17 @@
   align-items: center;
 }
 
+#options {
+  display: flex;
+  vertical-align: bottom;
+  align-items: center;
+}
+
+#options span {
+  flex-grow: 100;
+  text-align: left;
+}
+
 :host {
   display: block;
   width: 100%;
