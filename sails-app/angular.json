@@ -20,7 +20,8 @@
             "tsConfig": "assets/app/tsconfig.app.json",
             "assets": [
               "assets/app/favicon.ico",
-              "assets/app/assets"
+              "assets/app/assets",
+              "assets/app/manifest.json"
             ],
             "styles": [
               "assets/app/styles.css"
@@ -51,7 +52,8 @@
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
                 }
-              ]
+              ],
+              "serviceWorker": true
             }
           }
         },
@@ -85,7 +87,8 @@
             "scripts": [],
             "assets": [
               "assets/app/favicon.ico",
-              "assets/app/assets"
+              "assets/app/assets",
+              "assets/app/manifest.json"
             ]
           }
         },
@@ -132,5 +135,8 @@
       }
     }
   },
-  "defaultProject": "angular-app"
+  "defaultProject": "angular-app",
+  "cli": {
+    "packageManager": "yarn"
+  }
 }

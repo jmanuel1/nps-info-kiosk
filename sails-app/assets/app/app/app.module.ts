@@ -17,7 +17,8 @@ import { MatFormFieldModule,
          MatExpansionModule,
          MatButtonModule,
          MatTabsModule,
-         MatAutocompleteModule } from '@angular/material';
+         MatAutocompleteModule,
+         MatSnackBarModule } from '@angular/material';
 
 import { InlineSVGModule } from 'ng-inline-svg';
 
@@ -41,6 +42,9 @@ import {
   TitleListCardComponent
 } from './title-list-card/title-list-card.component';
 import { NpsSymbolComponent } from './nps-symbol/nps-symbol.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+import { IosInstallComponent } from './ios-install/ios-install.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +58,8 @@ import { NpsSymbolComponent } from './nps-symbol/nps-symbol.component';
     SearchPageComponent,
     ParkPageComponent,
     TitleListCardComponent,
-    NpsSymbolComponent
+    NpsSymbolComponent,
+    IosInstallComponent
   ],
   imports: [
     BrowserModule,
@@ -69,10 +74,13 @@ import { NpsSymbolComponent } from './nps-symbol/nps-symbol.component';
     MatButtonModule,
     MatTabsModule,
     MatAutocompleteModule,
+    MatSnackBarModule,
     HttpClientModule,
-    InlineSVGModule.forRoot()
+    InlineSVGModule.forRoot(),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [IosInstallComponent]
 })
 export class AppModule { }
