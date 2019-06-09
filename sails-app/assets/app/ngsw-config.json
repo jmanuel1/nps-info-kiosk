@@ -23,5 +23,18 @@
         ]
       }
     }
+  ],
+  "dataGroups": [
+    {
+      "name": "nps",
+      "urls": [ "/api/v1/nps/**" ],
+      "version": 1,
+      "cacheConfig": {
+        "maxSize": 1000,
+        "maxAge": "2h",
+        "timeout": "5s",
+        "strategy": "performance"
+      }
+    }
   ]
 }
