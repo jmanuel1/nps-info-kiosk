@@ -9,6 +9,8 @@
  * https://sailsjs.com/config/http
  */
 
+import { Request, Response } from 'express';
+
 declare var sails: any;
 
 module.exports.http = {
@@ -24,7 +26,7 @@ module.exports.http = {
 
   middleware: {
     /* This middleware adds an event handler to every response object to log when the response finishes. */
-    logResponses(req, res, next): void {
+    logResponses(_: Request, res: Response, next: () => void): void {
       res.on('finish', () => {
         sails.log.debug('A request with the following headers has finished:');
         sails.log.debug(res.getHeaders());
@@ -43,7 +45,7 @@ module.exports.http = {
     //   'cookieParser',
     //   'session',
     //   'bodyParser',
-    //   'compress',
+      'compress',
     //   'poweredBy',
     //   'router',
     //   'www',
