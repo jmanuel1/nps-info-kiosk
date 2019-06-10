@@ -29,6 +29,11 @@ You can test that the app can be installed on a desktop computer by using
 Chrome. The install option can be found under the Chrome menu > Install
 National Parks Kiosk.
 
+### PWA Lighthouse audit
+
+<!-- TODO -->
+The app currently does not redirect HTTP traffic to HTTPS.
+
 ### Links
 
 + [Sails framework documentation](https://sailsjs.com/get-started)
