@@ -1,4 +1,4 @@
-#main-search,  mat-input {
+#main-search, mat-input, #filter-fields {
   width: 100%;
 }
 
@@ -13,12 +13,14 @@
 }
 
 #filter-fields span {
-  flex-grow: 100;
+  flex-grow: 75;
   text-align: left;
 }
 
 #filter-fields mat-form-field {
   padding: 10px;
+  flex: 25 1;
+  min-width: 0;
 }
 
 #filter-fields {
