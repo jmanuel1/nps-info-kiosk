@@ -39,8 +39,6 @@ module.exports = {
     }
     return that.res.status(200).set('Content-Type', contentType)
       .send(fileContents);
-    // that.res.type(getContentType(pth)).sendFile(pathToFile, { root: process.cwd() });
-
   }
 
 
@@ -53,7 +51,13 @@ function isTypeBinary(type: string) {
 
 function getContentType(pth: string): string {
   const extension = path.extname(pth);
-  const typeMap = { '.css': 'text/css', '.svg': 'image/svg+xml', '.js': 'application/javascript', '.png': 'image/png', '.ico': 'image/x-icon' };
+  const typeMap = {
+    '.css': 'text/css',
+    '.svg': 'image/svg+xml',
+    '.js': 'application/javascript',
+    '.png': 'image/png',
+    '.ico': 'image/x-icon'
+  };
   return typeMap[extension] || 'text/html';
 }
 

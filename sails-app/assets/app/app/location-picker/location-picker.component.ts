@@ -55,6 +55,7 @@ export class LocationPickerComponent implements OnInit {
       locateControl: true
     };
     const s = document.createElement('script');
+    // NOTE: this is not cached by the service worker to avoid a CORS error
     s.src = 'https://www.nps.gov/lib/npmap.js/4.0.0/npmap-bootstrap.js';
     document.body.appendChild(s);
   }
