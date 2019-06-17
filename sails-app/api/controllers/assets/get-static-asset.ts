@@ -48,12 +48,12 @@ module.exports = {
 
 function isTypeBinary(type: string) {
   // Images must be binary, or they won't send!
-  return type === 'image/png';
+  return new Set(['image/png', 'image/x-icon']).has(type);
 }
 
 function getContentType(pth: string): string {
   const extension = path.extname(pth);
-  const typeMap = { '.css': 'text/css', '.svg': 'image/svg+xml', '.js': 'application/javascript', '.png': 'image/png' };
+  const typeMap = { '.css': 'text/css', '.svg': 'image/svg+xml', '.js': 'application/javascript', '.png': 'image/png', '.ico': 'image/x-icon' };
   return typeMap[extension] || 'text/html';
 }
 
