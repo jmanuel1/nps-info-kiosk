@@ -90,10 +90,13 @@ export function arrangeAddresses(npsResponse: NPSResponse) {
     const physical = addresses.filter((address) => {
       return address.type === 'Physical';
     })[0];
+    const mailing = addresses.filter((address) => {
+      return address.type === 'Mailing';
+    })[0];
     return {
       ...location,
       addresses: {
-        physical
+        physical, mailing
       }
     };
   });

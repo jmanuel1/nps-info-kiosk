@@ -4,7 +4,7 @@
 
 import { stringify } from 'querystring';
 import { Request, Response } from 'express';
-import { arrangeAddresses, makeNPSRequest } from '../nps-data-api';
+import { arrangeAddresses, makeNPSRequest, NPSResponse as BaseNPSResponse } from '../nps-data-api';
 
 declare var sails: any;
 
@@ -32,7 +32,7 @@ class NPSParameters {
   }
 }
 
-interface NPSResponse {
+interface NPSResponse extends BaseNPSResponse {
   data: { addresses: { type: string }[] }[];
 }
 
