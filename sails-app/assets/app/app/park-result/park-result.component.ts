@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { SearchService } from './visitor-center-service';
+import { SearchService } from '../search/visitor-center-service';
 import { CampgroundsSearchService } from '../campground-search.service';
 
 @Component({

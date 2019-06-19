@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { ParkPageComponent } from './park-page/park-page.component';
+import { VisitorCenterPageComponent } from './visitor-center-page/visitor-center-page.component';
 
 // NOTE: Set to true only during development
 const ENABLE_ROUTER_TRACING = false;
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'park/:parkCode',
     component: ParkPageComponent
+  },
+  {
+    path: 'visitor-center/:parkCode/:id',
+    component: VisitorCenterPageComponent
   },
   // default route
   {

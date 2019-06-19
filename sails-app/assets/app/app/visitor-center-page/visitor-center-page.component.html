@@ -1,0 +1,44 @@
+<div class="visitor-center-page">
+  <h1>{{visitorCenter.name}}</h1>
+  <mat-tab-group>
+    <mat-tab label="General Info">
+      <mat-card>
+        <mat-card-title>
+          Directions
+          <app-nps-symbol symbolName="directions"></app-nps-symbol>
+        </mat-card-title>
+        <p>Overview: {{visitorCenter.directionsInfo}}</p>
+        <p>
+          Physical address:<br>
+          {{visitorCenter.addresses.physical.line1}}
+          <br *ngIf="visitorCenter.addresses.physical.line1">
+          {{visitorCenter.addresses.physical.line2}}
+          <br *ngIf="visitorCenter.addresses.physical.line2">
+          {{visitorCenter.addresses.physical.line3}}
+          <span *ngIf="visitorCenter.addresses.physical.line3">,</span>
+          {{visitorCenter.addresses.physical.city}},
+          {{visitorCenter.addresses.physical.stateCode}},
+          {{visitorCenter.addresses.physical.postalCode}}
+        </p>
+      </mat-card>
+      <mat-card>
+        <mat-card-title>
+          Contact <app-nps-symbol symbolName="post-office"></app-nps-symbol>
+        </mat-card-title>
+        <!-- TODO: Create an address component -->
+        <p>
+          Mailing address:<br>
+          {{visitorCenter.addresses.mailing.line1}}
+          <br *ngIf="visitorCenter.addresses.mailing.line1">
+          {{visitorCenter.addresses.mailing.line2}}
+          <br *ngIf="visitorCenter.addresses.mailing.line2">
+          {{visitorCenter.addresses.mailing.line3}}
+          <span *ngIf="visitorCenter.addresses.mailing.line3">,</span>
+          {{visitorCenter.addresses.mailing.city}},
+          {{visitorCenter.addresses.mailing.stateCode}},
+          {{visitorCenter.addresses.mailing.postalCode}}
+        </p>
+      </mat-card>
+    </mat-tab>
+  </mat-tab-group>
+</div>

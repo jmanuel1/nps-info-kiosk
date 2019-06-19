@@ -2,7 +2,7 @@
   <mat-list role="list">
     <mat-list-item role="listitem" class="center-item"
       *ngFor="let center of centers">
-      {{center.name}}<br>
+      <a [routerLink]="['/visitor-center', center.parkCode, center.id]">{{center.name}}</a><br>
       {{center.addresses.physical.line1}}<br *ngIf="center.addresses.physical.line1">
       {{center.addresses.physical.line2}}<br *ngIf="center.addresses.physical.line2">
       {{center.addresses.physical.line3}} <span *ngIf="center.addresses.physical.line3">,</span> {{center.addresses.physical.city}}, {{center.addresses.physical.stateCode}}, {{center.addresses.physical.postalCode}}
