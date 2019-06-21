@@ -1,6 +1,7 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { point, Coord, getCoord } from '@turf/turf';
 import { LocationService } from './location.service';
+import {MatDialog, MatDialogRef} from '@angular/material';
 // NOTE: Since the leaflet npm package is not actually installed, this import
 // must be used ONLY for type information so that Typescript erases at in
 // runtime. See https://www.typescriptlang.org/docs/handbook/modules.html
@@ -29,55 +30,80 @@ export class LocationPickerComponent implements OnInit {
   isMapOpen = false;
   location: Coord;
   marker: Leaflet.Marker;
+  private dialogRef: MatDialogRef<MapDialogComponent>;
 
-  constructor(private zone: NgZone) {
+  constructor(private zone: NgZone, private mapDialog: MatDialog) {
 
   }
 
   ngOnInit() {
-    window.NPMap = {
-      div: 'map',
-      hooks: {
-        init: (callback: () => void) => {
-          this.marker = L.marker([0, 0]).addTo(window.NPMap.config.L);
-          window.NPMap.config.L.on('click', (e: Leaflet.LeafletMouseEvent) =>
-            this.setLocation(e));
-          // TODO: Don't close map on mouseout when asking for geolocate
-          // permission
-          window.NPMap.config.L.on('mouseout', () => this.closeMap());
-          window.NPMap.config.L.on('locationfound', (e: Leaflet.LocationEvent) =>
-            this.setLocation(e));
-          window.NPMap.config.L.on('locationerror', () =>
-            this.onGeolocateFail());
-          callback();
-        }
-      },
-      locateControl: true
-    };
-    const s = document.createElement('script');
-    // NOTE: this is not cached by the service worker to avoid a CORS error
-    s.src = 'https://www.nps.gov/lib/npmap.js/4.0.0/npmap-bootstrap.js';
-    document.body.appendChild(s);
+
   }
 
   toggleMap() {
     this.isMapOpen = !this.isMapOpen;
+
     if (this.isMapOpen) {
-      const map = window.NPMap.config.L;
-      // this line is needed to get the map tiles to render correctly since the
-      // map is initially hidden
-      L.Util.requestAnimFrame(() => map.invalidateSize(), map, false);
+      this.openMap();
+    } else {
+      this.dialogRef.close();
     }
   }
 
-  closeMap() {
+  openMap() {
+    this.isMapOpen = true;
+
+    const dialogRef = this.mapDialog.open(MapDialogComponent);
+    // set the width of the dialog's panel so that the map is sized correctly
+    dialogRef.addPanelClass('width-100-percent');
+    dialogRef.afterOpened().subscribe(async () => {
+      await this.instantiateMap();
+      const map = window.NPMap.config.L;
+      // this line is needed to get the map tiles to render correctly since the
+      // map is contained in a panel that originally had no set width
+      L.Util.requestAnimFrame(() => {
+        map.invalidateSize();
+      }, map, false);
+    });
+    dialogRef.afterClosed().subscribe(() => this.afterCloseMap());
+    this.dialogRef = dialogRef;
+  }
+
+  instantiateMap() {
+    return new Promise((resolve) => {
+      window.NPMap = {
+        div: 'map',
+        hooks: {
+          init: (callback: () => void) => {
+            this.marker = L.marker([0, 0]).addTo(window.NPMap.config.L);
+            window.NPMap.config.L.on('click', (e: Leaflet.LeafletMouseEvent) =>
+              this.setLocation(e));
+            window.NPMap.config.L.on(
+              'locationfound',
+              (e: Leaflet.LocationEvent) =>
+                this.setLocation(e));
+            window.NPMap.config.L.on('locationerror', () =>
+              this.onGeolocateFail());
+            callback();
+            resolve();
+          }
+        },
+        locateControl: true
+      };
+      const s = document.createElement('script');
+      // NOTE: this is not cached by the service worker to avoid a CORS error
+      s.src = 'https://www.nps.gov/lib/npmap.js/4.0.0/npmap-bootstrap.js';
+      document.body.appendChild(s);
+    });
+  }
+
+  afterCloseMap() {
     this.isMapOpen = false;
     // force change detection
     this.zone.run(() => null);
   }
 
   setLocation(event: Leaflet.LeafletMouseEvent | Leaflet.LocationEvent) {
-    console.dir(event);
     this.location = point([event.latlng.lat, event.latlng.lng]);
     this.updateMarker(this.location);
     LocationService.nextLocation(this.location);
@@ -91,5 +117,40 @@ export class LocationPickerComponent implements OnInit {
   onGeolocateFail() {
     // TODO: Use proper error notification
     alert('Error retrieving your location.');
+  }
+}
+
+@Component({
+  selector: 'app-location-picker-map-dialog',
+  template: `
+    <mat-dialog-content>
+      <div id="map"></div>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button mat-button [mat-dialog-close]="">Close</button>
+    </mat-dialog-actions>`,
+  styles: [
+    `
+    /*:host, * {
+      width: 100%;
+      height: 100%;
+    }*/
+
+    #map {
+      width: inherit;
+      height: 632px;
+    }
+
+    mat-dialog-content {
+      position: relative;
+    }`]
+})
+export class MapDialogComponent implements OnInit {
+  constructor(public dialogRef: MatDialogRef<MapDialogComponent>) {
+
+  }
+
+  ngOnInit() {
+
   }
 }

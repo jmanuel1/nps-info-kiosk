@@ -39,7 +39,8 @@ import {
   CampgroundListComponent
 } from './campground-list/campground-list.component';
 import {
-  LocationPickerComponent
+  LocationPickerComponent,
+  MapDialogComponent
 } from './location-picker/location-picker.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { ParkPageComponent } from './park-page/park-page.component';
@@ -68,7 +69,8 @@ import {
     TitleListCardComponent,
     NpsSymbolComponent,
     IosInstallComponent,
-    VisitorCenterPageComponent
+    VisitorCenterPageComponent,
+    MapDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -85,6 +87,7 @@ import {
     MatAutocompleteModule,
     MatSnackBarModule,
     MatToolbarModule,
+    MatDialogModule,
     HttpClientModule,
     InlineSVGModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {
@@ -93,6 +96,6 @@ import {
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [IosInstallComponent]
+  entryComponents: [IosInstallComponent, MapDialogComponent]
 })
 export class AppModule { }
