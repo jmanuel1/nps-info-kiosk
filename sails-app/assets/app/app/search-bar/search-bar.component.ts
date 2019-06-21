@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { SearchService,
-         SearchResults,
-         SearchParameters } from './search-service';
+import {
+  SearchService,
+  SearchResults,
+  SearchParameters
+} from './search-service';
 import { Subject } from 'rxjs';
 
 @Component({
