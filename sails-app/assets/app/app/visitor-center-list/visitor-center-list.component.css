@@ -5,3 +5,14 @@
   padding-bottom: 10px;
   text-align: left;
 }
+
+a {
+  color: inherit;
+  display: inline;
+}
+
+/* needs at least this specificity */
+.wrap-text[matLine] {
+  overflow: visible;
+  white-space: normal;
+}
