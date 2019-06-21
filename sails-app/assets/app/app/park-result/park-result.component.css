@@ -2,3 +2,8 @@ mat-panel-title {
   vertical-align: middle;
   align-items: center;
 }
+
+a {
+  color: inherit;
+  line-height: 24px;
+}
