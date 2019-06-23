@@ -63,6 +63,32 @@ different versions of Node.js, the Sails dependency in its package.json file
 may differ from the globally-installed Sails CLI release it was originally
 generated with. (Be sure to always check out the relevant
 [upgrading guides](https://sailsjs.com/upgrading) before upgrading the version
-of Sails used by your app.  If you're stuck,
+of Sails used by your app. If you're stuck,
 [get help here](https://sailsjs.com/support).)
 -->
+
+## Attributions
+
+### Libraries/Frameworks
+
+- Turf.js
+- [NPMap.js](https://www.nps.gov/lib/npmap.js/4.0.0/npmap-bootstrap.js) (which
+  is itself based on Leaflet)
+- Angular Material
+- Angular
+- [Sails](https://github.com/balderdashy/sails)
+- [Definitely Typed](https://github.com/DefinitelyTyped/DefinitelyTyped)
+- [ng-inline-svg](https://github.com/arkon/ng-inline-svg)
+- [NPS Symbols Library](https://github.com/nationalparkservice/symbol-library)
+
+### Fonts
+
+- [Roboto](https://github.com/google/roboto)
+- [Material Design Icons](https://github.com/google/material-design-icons)
+
+### Data Sources
+
+- [National Parks Service data API](https://www.nps.gov/subjects/developer/index.htm)
+- [OpenStreetMap contributors](https://www.openstreetmap.org/copyright) for
+  their map tiles
+    - (NPS Park Tiles aren't used because [they don't allow that](https://github.com/nationalparkservice/park-tiles/wiki/Frequently-Asked-Questions#using-park-tiles).)
