@@ -84,7 +84,13 @@ export class LocationPickerComponent implements OnInit {
                 this.setLocation(e));
             window.NPMap.config.L.on('locationerror', () =>
               this.onGeolocateFail());
+
             callback();
+
+            this.removeAllTileLayers(window.NPMap.config.L);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(window.NPMap.config.L);
             resolve();
           }
         },
@@ -94,6 +100,14 @@ export class LocationPickerComponent implements OnInit {
       // NOTE: this is not cached by the service worker to avoid a CORS error
       s.src = 'https://www.nps.gov/lib/npmap.js/4.0.0/npmap-bootstrap.js';
       document.body.appendChild(s);
+    });
+  }
+
+  removeAllTileLayers(map: Leaflet.Map) {
+    map.eachLayer((layer) => {
+      if (layer instanceof L.TileLayer) {
+        map.removeLayer(layer);
+      }
     });
   }
 
